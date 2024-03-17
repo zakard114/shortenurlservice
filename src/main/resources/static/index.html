@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ShortURL Service</title>
+</head>
+<body>
+    <h1>ShortURL Service</h1>
+    <div>
+        <form onsubmit="return makeShortenUrl();">
+            <input type="url" id="originalUrl" placeholder="Type URL to shortening" size="50" required autofocus>
+            <input type="submit" value="Create short URL">
+        </form>
+        shortened URL: <span id="generatedUrl"></span>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <h2>Shortened URL information search</h2>
+    <div>
+        <form onsubmit="return getShortenUrlInformation();">
+            <input type="url" id="shortenUrl" placeholder="Enter the shortened URL to view information" size="50" required>
+            <input type="submit" value="Shortened URL information search">
+        </form>
+         Short URL information: <span id="shortenUrlInformation"></span>
+    </div>
+    <script>
+        function makeShortenUrl(){
+            const originalUrl = document.querySelector('#originalUrl').value;
+            const requestObject = {originalUrl: originalUrl};
+            const requestJson = JSON.stringify(requestObject);
+
+            function onReadyStateChange(event) {
+                if(ajaxRequest.readyState === XMLHttpRequest.DONE){
+                    if(ajaxRequest.status === 200) {
+                        const shortenUrl = JSON.parse(ajaxRequest.responseText);
+                        const completedShortenUrl = window.location.protocol +
+                            "//" + window.location.host + "/" + shortenUrl.shortenUrlKey;
+
+                        const generatedDom = document.querySelector("#generatedUrl");
+                        generatedDom.innerHTML = completedShortenUrl;
+                    } else {
+                        console.error('request failed');
+                    }
+                }
+            }
+
+            const ajaxRequest = new XMLHttpRequest();
+
+            ajaxRequest.onreadystatechange = onReadyStateChange;
+            ajaxRequest.open('POST', '/shortenUrl');
+            ajaxRequest.setRequestHeader('Content-Type', 'application/json');
+            ajaxRequest.send(requestJson);
+
+            return false;
+        }
+
+        function getShortenUrlInformation(){
+            const shortenUrl = document.querySelector("#shortenUrl").value;
+            const shortenUrlKey = shortenUrl.split("/")[3];
+
+            function onReadyStateChange(event){
+                if (ajaxRequest.readyState === XMLHttpRequest.DONE){
+                    if(ajaxRequest.status === 200) {
+                        const shortenUrlInformation = JSON.parse(ajaxRequest.responseText);
+                        const shortenUrlInformationDom = document.querySelector('#shortenUrlInformation');
+                        shortenUrlInformationDom.innerHTML = ajaxRequest.responseText;
+                    } else {
+                        console.error('request failed');
+                    }
+                }
+            }
+            const ajaxRequest = new XMLHttpRequest();
+
+            ajaxRequest.onreadystatechange = onReadyStateChange;
+            ajaxRequest.open('GET', '/shortenUrl/'+shortenUrlKey);
+            ajaxRequest.send();
+
+            return false;
+        }
+    </script>
+</body>
+</html>
