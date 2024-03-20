@@ -24,7 +24,7 @@ class ShortenUrlRestControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    @DisplayName("원래의 URL로 리다이렉트 되어야한다.")
+    @DisplayName("It should redirect to the original URL.")
     void redirectTest() throws Exception {
         String expectedOriginalUrl = "https://www.hanbit.co.kr/";
 

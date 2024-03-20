@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleNotFoundShortenUrlException(
             NotFoundShortenUrlException ex
     ) {
-        return new ResponseEntity<>("Shortened URL not found.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Shortened URL not found.", HttpStatus.NOT_FOUND);
     }
 
 }

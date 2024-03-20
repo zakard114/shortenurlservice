@@ -24,7 +24,7 @@ public class SimpleShortenUrlServiceUnitTest {
     private SimpleShortenUrlService simpleShortenUrlService;
 
     @Test
-    @DisplayName("단축 URL이 계속 중복되면 LackOfShortenUrlKeyException 예외가 발생해야한다.")
+    @DisplayName("If shortened URLs continue to overlap, a LackOfShortenUrlKeyException exception should be raised.")
     void throwLackOfShortenUrlKeyExceptionTest() {
         ShortenUrlCreateRequestDto shortenUrlCreateRequestDto = new ShortenUrlCreateRequestDto(null);
 

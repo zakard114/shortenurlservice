@@ -74,7 +74,7 @@ public class SimpleShortenUrlService {
     }
 
 
-    public Optional< String > getOriginalUrlByShortenUrlKey2 (String shortenUrlKey){
+    public Optional<String> getOriginalUrlByShortenUrlKey2 (String shortenUrlKey){
         ShortenUrl shortenUrl = shortenUrlRepository.findShortenUrlByShortenUrlKey(shortenUrlKey);
 
         if(null == shortenUrl) return Optional.empty();

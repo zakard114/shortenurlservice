@@ -50,4 +50,6 @@ public ResponseEntity<?> redirectShortenUrl(@PathVariable String shortenUrlKey) 
         return ResponseEntity.ok(shortenUrlInformationDto);
     }
 
+
+
 }
