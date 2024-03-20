@@ -35,6 +35,5 @@ class ShortenUrlRestControllerTest {
                 .andExpect(header().string("Location", expectedOriginalUrl));
     }
 
-    // 없는 단축 URL을 조회하는 경우는 여러분들이 테스트 작성 해보기 (404로 떨어지나?)
 
 }
